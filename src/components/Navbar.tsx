@@ -1,9 +1,10 @@
-
+import { NavLink } from "react-router-dom"
 
 const Navbar = () => {
     return <header>
         <nav>
-            This is Navbar
+            <NavLink to="/">Home</NavLink>
+            <NavLink to='/movies'>Movie reviews</NavLink>
         </nav>
     </header>
 }
