@@ -12,7 +12,6 @@ const AddMovie = () => {
     
         try {
             await addDoc(collection(db, "movies"), {
-                id: new Date().getTime(),
                 title: title,
                 review: review,
                 rating: parseInt(rating, 10)
