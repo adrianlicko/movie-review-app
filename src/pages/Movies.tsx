@@ -1,9 +1,38 @@
+import { useState, useEffect } from "react";
+import { collection, onSnapshot, DocumentData } from "firebase/firestore";
+import { db } from "../firebase/config";
 
-
-const Movies = () => {
-    return <section>
-        <h1>Movie template</h1>
-    </section>
+interface Movie {
+    title: string;
+    rating: number;
+    review: string;
 }
 
-export default Movies
+const Movies = () => {
+    const [movies, setMovies] = useState<Movie[]>([]);
+
+    useEffect(() => {
+        const moviesCol = collection(db, 'movies');
+        const unsubscribe = onSnapshot(moviesCol, (snapshot) => {
+            const movieList = snapshot.docs.map((doc: DocumentData) => doc.data() as Movie);
+            setMovies(movieList);
+        });
+
+        // Clean up the listener when the component unmounts
+        return () => unsubscribe();
+    }, []);
+
+    return (
+        <section>
+            {movies.map((movie, index) => (
+                <div key={index}>
+                    <h2>{movie.title}</h2>
+                    <p>{movie.rating}</p>
+                    <p>{movie.review}</p>
+                </div>
+            ))}
+        </section>
+    );
+}
+
+export default Movies;
