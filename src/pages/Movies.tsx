@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { collection, onSnapshot, DocumentData } from "firebase/firestore";
 import { db } from "../firebase/config";
+import AddMovie from "../components/AddMovie";
 
 interface Movie {
+    id: string;
     title: string;
     rating: number;
     review: string;
@@ -24,8 +26,10 @@ const Movies = () => {
 
     return (
         <section>
-            {movies.map((movie, index) => (
-                <div key={index}>
+            <AddMovie />
+
+            {movies.map((movie) => (
+                <div key={movie.id}>
                     <h2>{movie.title}</h2>
                     <p>{movie.rating}</p>
                     <p>{movie.review}</p>
