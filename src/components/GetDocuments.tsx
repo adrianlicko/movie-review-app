@@ -12,7 +12,7 @@ interface Document {
     date: number;
 }
 
-const GetDocuments = ({collectionName}: {collectionName: string}) => {
+const GetDocuments = ({collectionName, searchText}: {collectionName: string; searchText: string}) => {
     const [documents, setDocuments] = useState<Document[]>([]);
 
     useEffect(() => {
@@ -27,7 +27,7 @@ const GetDocuments = ({collectionName}: {collectionName: string}) => {
 
         // Clean up the listener when the component unmounts
         return () => unsubscribe();
-    }, []);
+    }, [collectionName]);
 
     const deleteDocument = async (id: string) => {
         try {
@@ -37,10 +37,14 @@ const GetDocuments = ({collectionName}: {collectionName: string}) => {
         }
     }
 
+    const filteredDocuments = documents.filter(document =>
+        document.title.toLowerCase().includes(searchText.toLowerCase())
+    );
+
     return (
         <section className="document-container">
             <div className="one-document-container">
-                {documents.map((document) => (
+                {filteredDocuments.map((document) => (
                     <div key={document.id} className="one-document">
                         <h2 className="title">{document.title}</h2>
                         <p className="rating">{document.rating}</p>
