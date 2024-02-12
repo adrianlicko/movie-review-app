@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { collection, onSnapshot, DocumentData } from "firebase/firestore"; // for getting all movies from the database
 import { db } from "../firebase/config"; // getting a database
-import AddMovie from "../components/AddMovie";
+import AddMovie from "../components/AddDocument";
 import { doc, deleteDoc } from "firebase/firestore"; // for deleting a movie
 import './Movies.css'
 
@@ -41,7 +41,7 @@ const Movies = () => {
     return (
         <section className="movies-container">
             <div className="add-movie-component">
-                <AddMovie />
+                <AddMovie collectionName='movies' />
             </div>
             <div className="one-movie-container">
                 {movies.map((movie) => (

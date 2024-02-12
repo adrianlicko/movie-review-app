@@ -1,28 +1,28 @@
-.add-movie-container {
+.add-document-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.add-movie-container .title {
+.add-document-container .title {
     width: 300px;
     font-size: 20px;
 }
 
-.add-movie-container .review {
+.add-document-container .review {
     width: 350px;
     height: 75px;
     font-size: 20px;
 }
 
-.add-movie-container .rating {
+.add-document-container .rating {
     width: 40px;
     height: 30px;
     font-size: 20px;
 }
 
-.add-movie-container .submit-button {
+.add-document-container .submit-button {
     margin-top: 5px;
     background-color: white;
     border: none;
@@ -34,7 +34,7 @@
     transition: all 0.3s ease 0s;
 }
 
-.add-movie-container .submit-button:hover {
+.add-document-container .submit-button:hover {
     color: white;
     background-color: red;
     box-shadow: 0px 7px 15px white;

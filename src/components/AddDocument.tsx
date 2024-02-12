@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../firebase/config";
-import './AddMovie.css'
+import './AddDocument.css'
 
-const AddMovie = () => {
+const AddDocument = ({collectionName}: {collectionName: string}) => {
     const [title, setTitle] = useState("");
     const [review, setReview] = useState("");
     const [rating, setRating] = useState("");
@@ -13,7 +13,7 @@ const AddMovie = () => {
 
         try {
             if (title && review && rating) {
-                await addDoc(collection(db, "movies"), {
+                await addDoc(collection(db, collectionName), {
                     title: title,
                     review: review,
                     rating: parseInt(rating, 10),
@@ -29,12 +29,12 @@ const AddMovie = () => {
         }
     };
 
-    return <form onSubmit={submitForm} className="add-movie-container">
+    return <form onSubmit={submitForm} className="add-document-container">
         <input type="text" className="title" placeholder="Title" value={title} onChange={e => setTitle(e.target.value)} />
-        <textarea type="text" className="review" placeholder="Your review" value={review} onChange={e => setReview(e.target.value)} />
+        <textarea className="review" placeholder="Your review" value={review} onChange={e => setReview(e.target.value)} />
         <input type="number" className="rating" placeholder="Rating" min={1} max={10} value={rating} onChange={e => setRating(e.target.value)} />
         <button type="submit" className="submit-button">Add Movie</button>
     </form>
 }
 
-export default AddMovie
+export default AddDocument
