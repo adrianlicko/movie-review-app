@@ -3,12 +3,14 @@ import { collection, onSnapshot, DocumentData } from "firebase/firestore"; // fo
 import { db } from "../firebase/config"; // getting a database
 import AddMovie from "../components/AddMovie";
 import { doc, deleteDoc } from "firebase/firestore"; // for deleting a movie
+import './Movies.css'
 
 interface Movie {
     id: string;
     title: string;
     rating: number;
     review: string;
+    date: number;
 }
 
 const Movies = () => {
@@ -37,17 +39,20 @@ const Movies = () => {
     }
 
     return (
-        <section>
-            <AddMovie />
-
-            {movies.map((movie) => (
-                <div key={movie.id}>
-                    <h2>{movie.title}</h2>
-                    <p>{movie.rating}</p>
-                    <p>{movie.review}</p>
-                    <button onClick={() => deleteMovie(movie.id)}>Delete movie</button>
-                </div>
-            ))}
+        <section className="movies-container">
+            <div className="add-movie-component">
+                <AddMovie />
+            </div>
+            <div className="one-movie-container">
+                {movies.map((movie) => (
+                    <div key={movie.id} className="one-movie">
+                        <h2 className="title">{movie.title}</h2>
+                        <p className="rating">{movie.rating}</p>
+                        <p className="review">{movie.review}</p>
+                        <button className="delete-button" onClick={() => deleteMovie(movie.id)}>Delete movie</button>
+                    </div>
+                ))}
+            </div>
         </section>
     );
 }

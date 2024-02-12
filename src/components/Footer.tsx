@@ -1,8 +1,8 @@
-
+import './Footer.css'
 
 const Footer = () => {
-    return <footer>
-        This is footer
+    return <footer className="footer">
+        <p>&copy; Adrián Ličko {new Date().getFullYear()}</p>
     </footer>
 }
 
