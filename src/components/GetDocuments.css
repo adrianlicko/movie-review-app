@@ -55,4 +55,7 @@
 .delete-button:hover {
     width: 110px;
     height: 30px;
+    background-color: red;
+    border: none;
+    color: white;
 }
