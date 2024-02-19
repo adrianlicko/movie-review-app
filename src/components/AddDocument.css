@@ -22,6 +22,10 @@
     font-size: 20px;
 }
 
+.add-document-container .image {
+    color: white;
+}
+
 .add-document-container .submit-button {
     margin-top: 5px;
     background-color: white;

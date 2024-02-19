@@ -28,6 +28,12 @@
     margin: 5px;
 }
 
+.one-document-container .image {
+    width: 300px;
+    height: auto;
+    margin: 5px;
+}
+
 .title {
     margin-bottom: 0px;
 }

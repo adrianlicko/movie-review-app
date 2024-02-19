@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { collection, onSnapshot, DocumentData } from "firebase/firestore"; // for getting all movies from the database
 import { db } from "../firebase/config"; // getting a database
 import { doc, deleteDoc } from "firebase/firestore"; // for deleting a movie
+import { storage } from "../firebase/config"; // for deleting an image of the movie
+import { ref, deleteObject } from "firebase/storage";
 import './GetDocuments.css'
 
 interface Document {
@@ -9,10 +11,11 @@ interface Document {
     title: string;
     rating: number;
     review: string;
+    image: string;
     date: number;
 }
 
-const GetDocuments = ({collectionName, searchText}: {collectionName: string; searchText: string}) => {
+const GetDocuments = ({ collectionName, searchText }: { collectionName: string; searchText: string }) => {
     const [documents, setDocuments] = useState<Document[]>([]);
 
     useEffect(() => {
@@ -29,9 +32,12 @@ const GetDocuments = ({collectionName, searchText}: {collectionName: string; sea
         return () => unsubscribe();
     }, [collectionName]);
 
-    const deleteDocument = async (id: string) => {
+    const deleteDocument = async (id: string, imageUrl: string) => {
         try {
             await deleteDoc(doc(db, collectionName, id));
+
+            const imageRef = ref(storage, imageUrl);
+            await deleteObject(imageRef);
         } catch (error) {
             console.error("Error deleting document: ", error);
         }
@@ -46,10 +52,11 @@ const GetDocuments = ({collectionName, searchText}: {collectionName: string; sea
             <div className="one-document-container">
                 {filteredDocuments.map((document) => (
                     <div key={document.id} className="one-document">
+                        <img className="image" src={document.image} alt="" />
                         <h2 className="title">{document.title}</h2>
                         <p className="rating">{document.rating}</p>
                         <p className="review">{document.review}</p>
-                        <button className="delete-button" onClick={() => deleteDocument(document.id)}>Delete</button>
+                        <button className="delete-button" onClick={() => deleteDocument(document.id, document.image)}>Delete</button>
                     </div>
                 ))}
             </div>
